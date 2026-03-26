@@ -8,11 +8,11 @@ identity:
     ja_JP: "ファイルをダウンロード"
 description:
   human:
-    en_US: "Download an object from the configured MinIO bucket."
-    zh_Hans: "从已配置 MinIO Bucket 下载对象。"
+    en_US: "Download object to Dify, return MinIO URL, or both."
+    zh_Hans: "支持下载到 Dify、返回 MinIO 下载链接，或两者同时返回。"
     pt_BR: "Baixa um objeto do bucket MinIO configurado."
     ja_JP: "設定済み MinIO バケットからオブジェクトをダウンロードします。"
-  llm: "Download an object by object_name from MinIO bucket and return it as blob."
+  llm: "Download object by object_name with mode: dify_file, minio_url or both. URL can be raw or signed by expiration."
 parameters:
   - name: object_name
     type: string
@@ -24,6 +24,44 @@ parameters:
       en_US: "Object key to download from MinIO."
       zh_Hans: "要下载的 MinIO 对象键名。"
     llm_description: "MinIO object key to download."
+    form: llm
+  - name: download_mode
+    type: select
+    required: false
+    default: dify_file
+    label:
+      en_US: Download Mode
+      zh_Hans: 下载模式
+    human_description:
+      en_US: "dify_file: return blob; minio_url: return URL only; both: return blob and URL."
+      zh_Hans: "dify_file：下载到 Dify；minio_url：仅返回链接；both：两者都返回。"
+    llm_description: "Choose dify_file, minio_url, or both."
+    form: llm
+    options:
+      - value: dify_file
+        label:
+          en_US: Download To Dify
+          zh_Hans: 下载到 Dify
+      - value: minio_url
+        label:
+          en_US: Return MinIO URL
+          zh_Hans: 返回 MinIO 链接
+      - value: both
+        label:
+          en_US: Both
+          zh_Hans: 两者都返回
+  - name: download_url_expires_in
+    type: number
+    required: false
+    min: 1
+    max: 604800
+    label:
+      en_US: Download URL Expires In (Seconds)
+      zh_Hans: 下载链接过期时间（秒）
+    human_description:
+      en_US: "Optional. Effective for minio_url/both. Empty means raw URL path."
+      zh_Hans: "可选。对 minio_url/both 生效。不设置则返回文件裸路径。"
+    llm_description: "Optional expiration seconds for signed URL; empty means raw URL."
     form: llm
 extra:
   python:

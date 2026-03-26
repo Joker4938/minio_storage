@@ -63,6 +63,18 @@ credentials_for_provider:
     label:
       en_US: Session Token (Optional)
       zh_Hans: Session Token（可选）
+  public_download_base_url:
+    type: text-input
+    required: false
+    label:
+      en_US: Public Download Base URL (Optional)
+      zh_Hans: 公网下载基础地址（可选）
+    placeholder:
+      en_US: "https://files.example.com"
+      zh_Hans: "例如 https://files.example.com"
+    help:
+      en_US: "If configured, upload will return a long-term public download link."
+      zh_Hans: "配置后，上传接口会返回长期可用的公开下载链接。"
 
 tools:
   - tools/upload_file.yaml

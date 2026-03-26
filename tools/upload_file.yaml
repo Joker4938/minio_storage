@@ -8,11 +8,11 @@ identity:
     ja_JP: "ファイルをアップロード"
 description:
   human:
-    en_US: "Upload a file to the configured MinIO bucket."
-    zh_Hans: "上传文件到已配置的 MinIO Bucket。"
+    en_US: "Upload a file to the configured MinIO bucket and return a download URL."
+    zh_Hans: "上传文件到已配置的 MinIO Bucket，并返回下载链接。"
     pt_BR: "Envia um arquivo para o bucket MinIO configurado."
     ja_JP: "設定済み MinIO バケットへファイルをアップロードします。"
-  llm: "Upload a file to MinIO. Optionally provide object_name, prefix and content_type."
+  llm: "Upload a file to MinIO and return a download URL. Optionally provide object_name, prefix and content_type."
 parameters:
   - name: file
     type: file
@@ -57,6 +57,31 @@ parameters:
       en_US: "Optional MIME type override, e.g. application/pdf."
       zh_Hans: "可选 MIME 类型覆盖，例如 application/pdf。"
     llm_description: "Optional MIME type."
+    form: llm
+  - name: return_download_url
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Return Download URL
+      zh_Hans: 返回下载链接
+    human_description:
+      en_US: "Whether to return MinIO download URL in result."
+      zh_Hans: "是否在结果中返回 MinIO 下载链接。"
+    llm_description: "If true, include download_url fields in output."
+    form: llm
+  - name: download_url_expires_in
+    type: number
+    required: false
+    min: 1
+    max: 604800
+    label:
+      en_US: Download URL Expires In (Seconds)
+      zh_Hans: 下载链接过期时间（秒）
+    human_description:
+      en_US: "Optional. If set, return pre-signed URL with expiration (<=604800). If empty, return raw path."
+      zh_Hans: "可选。设置后返回带过期时间的签名链接（<=604800）；不设置则返回文件裸路径。"
+    llm_description: "Optional expiration seconds for signed download URL. Empty means raw URL path."
     form: llm
 extra:
   python:

@@ -8,11 +8,11 @@ identity:
     ja_JP: "ファイル一覧"
 description:
   human:
-    en_US: "List objects in the configured MinIO bucket."
-    zh_Hans: "列出已配置 MinIO Bucket 中的对象。"
+    en_US: "List objects in the configured MinIO bucket, optionally with download URLs."
+    zh_Hans: "列出已配置 MinIO Bucket 中的对象，可选返回下载链接。"
     pt_BR: "Lista objetos no bucket MinIO configurado."
     ja_JP: "設定済み MinIO バケット内のオブジェクト一覧を取得します。"
-  llm: "List files from MinIO bucket with optional prefix and max_keys."
+  llm: "List files from MinIO bucket with optional prefix, max_keys and with_download_url."
 parameters:
   - name: prefix
     type: string
@@ -49,6 +49,31 @@ parameters:
       en_US: "Maximum number of objects to return."
       zh_Hans: "最多返回对象数量。"
     llm_description: "Maximum number of records in response."
+    form: llm
+  - name: with_download_url
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Include Download URLs
+      zh_Hans: 包含下载链接
+    human_description:
+      en_US: "Whether each file item should include download_url fields."
+      zh_Hans: "是否为每个文件返回 download_url 等链接字段。"
+    llm_description: "If true, each file may include download_url, download_url_type and download_url_expires_at."
+    form: llm
+  - name: download_url_expires_in
+    type: number
+    required: false
+    min: 1
+    max: 604800
+    label:
+      en_US: Download URL Expires In (Seconds)
+      zh_Hans: 下载链接过期时间（秒）
+    human_description:
+      en_US: "Optional. Effective only when with_download_url=true. Empty means raw URL path."
+      zh_Hans: "可选。仅在 with_download_url=true 时生效。不设置则返回文件裸路径。"
+    llm_description: "Optional expiration seconds for signed URL. Empty means raw URL."
     form: llm
 extra:
   python:

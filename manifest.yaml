@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 0.0.2
 type: plugin
 author: joker
 name: minio_storage
@@ -23,7 +23,7 @@ plugins:
   tools:
     - provider/minio_storage.yaml
 meta:
-  version: 0.0.1
+  version: 0.0.2
   arch:
     - amd64
     - arm64
