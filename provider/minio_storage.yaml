@@ -1,0 +1,73 @@
+identity:
+  author: "joker"
+  name: "minio_storage"
+  label:
+    en_US: "MinIO Storage"
+    zh_Hans: "MinIO 存储"
+    pt_BR: "Armazenamento MinIO"
+    ja_JP: "MinIO ストレージ"
+  description:
+    en_US: "Upload, list and download files from MinIO buckets."
+    zh_Hans: "在 MinIO Bucket 中上传、列出和下载文件。"
+    pt_BR: "Faça upload, liste e baixe arquivos de buckets MinIO."
+    ja_JP: "MinIO バケットでアップロード・一覧・ダウンロードを行います。"
+  icon: "icon.svg"
+
+credentials_for_provider:
+  endpoint:
+    type: text-input
+    required: true
+    label:
+      en_US: Endpoint
+      zh_Hans: 访问地址
+    placeholder:
+      en_US: "127.0.0.1:9000 or https://minio.example.com"
+      zh_Hans: "例如 127.0.0.1:9000 或 https://minio.example.com"
+  access_key:
+    type: secret-input
+    required: true
+    label:
+      en_US: Access Key
+      zh_Hans: Access Key
+  secret_key:
+    type: secret-input
+    required: true
+    label:
+      en_US: Secret Key
+      zh_Hans: Secret Key
+  bucket:
+    type: text-input
+    required: true
+    label:
+      en_US: Bucket
+      zh_Hans: Bucket 名称
+    placeholder:
+      en_US: "my-bucket"
+      zh_Hans: "例如 my-bucket"
+  secure:
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Use HTTPS
+      zh_Hans: 使用 HTTPS
+  region:
+    type: text-input
+    required: false
+    label:
+      en_US: Region (Optional)
+      zh_Hans: Region（可选）
+  session_token:
+    type: secret-input
+    required: false
+    label:
+      en_US: Session Token (Optional)
+      zh_Hans: Session Token（可选）
+
+tools:
+  - tools/upload_file.yaml
+  - tools/list_files.yaml
+  - tools/download_file.yaml
+extra:
+  python:
+    source: provider/minio_storage.py

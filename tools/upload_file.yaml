@@ -1,0 +1,63 @@
+identity:
+  name: "upload_file"
+  author: "joker"
+  label:
+    en_US: "Upload File"
+    zh_Hans: "上传文件"
+    pt_BR: "Enviar arquivo"
+    ja_JP: "ファイルをアップロード"
+description:
+  human:
+    en_US: "Upload a file to the configured MinIO bucket."
+    zh_Hans: "上传文件到已配置的 MinIO Bucket。"
+    pt_BR: "Envia um arquivo para o bucket MinIO configurado."
+    ja_JP: "設定済み MinIO バケットへファイルをアップロードします。"
+  llm: "Upload a file to MinIO. Optionally provide object_name, prefix and content_type."
+parameters:
+  - name: file
+    type: file
+    required: true
+    label:
+      en_US: File
+      zh_Hans: 文件
+    human_description:
+      en_US: "The file to upload."
+      zh_Hans: "需要上传的文件。"
+    llm_description: "The file input from Dify."
+    form: llm
+  - name: object_name
+    type: string
+    required: false
+    label:
+      en_US: Object Name
+      zh_Hans: 对象名
+    human_description:
+      en_US: "Target object name. Defaults to original filename."
+      zh_Hans: "目标对象名，默认使用原始文件名。"
+    llm_description: "Optional object name in MinIO."
+    form: llm
+  - name: prefix
+    type: string
+    required: false
+    label:
+      en_US: Prefix
+      zh_Hans: 前缀目录
+    human_description:
+      en_US: "Optional folder-like prefix, e.g. docs/2026."
+      zh_Hans: "可选目录前缀，例如 docs/2026。"
+    llm_description: "Optional object prefix without leading slash."
+    form: llm
+  - name: content_type
+    type: string
+    required: false
+    label:
+      en_US: Content Type
+      zh_Hans: 内容类型
+    human_description:
+      en_US: "Optional MIME type override, e.g. application/pdf."
+      zh_Hans: "可选 MIME 类型覆盖，例如 application/pdf。"
+    llm_description: "Optional MIME type."
+    form: llm
+extra:
+  python:
+    source: tools/upload_file.py

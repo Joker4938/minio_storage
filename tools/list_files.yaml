@@ -1,0 +1,55 @@
+identity:
+  name: "list_files"
+  author: "joker"
+  label:
+    en_US: "List Files"
+    zh_Hans: "列出文件"
+    pt_BR: "Listar arquivos"
+    ja_JP: "ファイル一覧"
+description:
+  human:
+    en_US: "List objects in the configured MinIO bucket."
+    zh_Hans: "列出已配置 MinIO Bucket 中的对象。"
+    pt_BR: "Lista objetos no bucket MinIO configurado."
+    ja_JP: "設定済み MinIO バケット内のオブジェクト一覧を取得します。"
+  llm: "List files from MinIO bucket with optional prefix and max_keys."
+parameters:
+  - name: prefix
+    type: string
+    required: false
+    label:
+      en_US: Prefix
+      zh_Hans: 前缀
+    human_description:
+      en_US: "Optional prefix to filter objects."
+      zh_Hans: "可选对象名前缀过滤。"
+    llm_description: "Optional object key prefix."
+    form: llm
+  - name: recursive
+    type: boolean
+    required: false
+    default: true
+    label:
+      en_US: Recursive
+      zh_Hans: 递归
+    human_description:
+      en_US: "Whether to list all descendants."
+      zh_Hans: "是否递归列出所有子路径。"
+    llm_description: "If true, list recursively."
+    form: llm
+  - name: max_keys
+    type: number
+    required: false
+    default: 100
+    min: 1
+    label:
+      en_US: Max Keys
+      zh_Hans: 最大返回数量
+    human_description:
+      en_US: "Maximum number of objects to return."
+      zh_Hans: "最多返回对象数量。"
+    llm_description: "Maximum number of records in response."
+    form: llm
+extra:
+  python:
+    source: tools/list_files.py
